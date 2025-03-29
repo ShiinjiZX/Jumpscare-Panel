@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login to Continue</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2b3e50;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+            position: relative;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: none;
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .login-container h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .login-container img {
+            width: 100px;
+            margin-bottom: 20px;
+        }
+
+        .login-container input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .login-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .login-container button:hover {
+            background-color: #0056b3;
+        }
+
+        .login-container a {
+            display: block;
+            margin-top: 10px;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .login-container a:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #888;
+        }
+
+        /* Hidden jumpscare element */
+        .jumpscare {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .jumpscare video {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-container">
+    <div class="error-message" id="errorMessage">Username/Password Failed!</div>
+    <img src="https://i.ibb.co.com/8rf3Qrm/20240912-052224.png" alt="20240912-052224">
+    <h1>Login to Continue</h1>
+    <form id="loginForm">
+        <input type="text" id="username" name="username" placeholder="Username or Email" required>
+        <input type="password" id="password" name="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+        <a href="#">Forgot Password?</a>
+    </form>
+    <div class="footer">
+        &copy; 2015 - 2024 Pterodactyl Software
+    </div>
+</div>
+
+<!-- Hidden jumpscare section -->
+<div class="jumpscare" id="jumpscare">
+    <video id="jumpscareVideo" controls></video>
+</div>
+
+<script>
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+        event.preventDefault(); 
+        
+        let username = document.getElementById('username').value;
+        let password = document.getElementById('password').value;
+        let errorMessage = document.getElementById('errorMessage');
+        let jumpscare = document.getElementById('jumpscare');
+        let video = document.getElementById('jumpscareVideo');
+        // Video jumpscare nya tambahin aja kalo mau
+        let videos = [
+            "https://files.catbox.moe/cff40p.mp4",
+            "https://files.catbox.moe/g1v4r7.mp4",
+            "https://files.catbox.moe/pgn3sl.mp4"
+        ];
+			// Username sama PW Login
+        if (username === "AdminRiza" && password === "AdminRiza12") {
+            // Gak Usah Di Apa-apain
+            errorMessage.style.display = 'none';
+            
+            // Milih Video Random Waktu Klik Login
+            let randomVideo = videos[Math.floor(Math.random() * videos.length)];
+            video.src = randomVideo;
+            
+            // Video Di Tampilin
+            jumpscare.style.display = 'flex';
+            video.muted = false; // Suara Videonya ganti True Kalo Gak Mau Ada Suaranya
+            video.play().catch(error => console.log("Autoplay blocked: ", error));
+        } else {
+            // Bakalan Munculin Text Kalo Salah Ketik Username Atau PW //Liat Line 115
+            errorMessage.style.display = 'block';
+            
+            // Hilangin Txt Di Line 115 Saat 5 Detik
+            setTimeout(() => {
+                errorMessage.style.display = 'none';
+            }, 5000);
+        }
+    });
+</script>
+
+</body>
+</html>
